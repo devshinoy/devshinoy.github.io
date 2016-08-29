@@ -15,7 +15,7 @@ body {
  *
  * ...hello?            
  *
- * Oh hai guys! It's me, pen#PwLXXP.         
+ * Oh hai guys! It's me, Shinoy Shaji.         
  *
  * I'm just sitting here coding away.            
  *
@@ -58,7 +58,7 @@ pre em:not(.comment) { font-style: normal; }
 
 
 /* 
- * Let's build my little pen heart.
+ * Let's build my little heart.
  */ 
 
 
@@ -123,7 +123,7 @@ pre { left: 50%; }
 /* Makin it mine. */
 
 #heart i::before {
-  content: 'pen#PwLXXP';
+  content: 'Shinoy Shaji';
   position: absolute;
   z-index: 9;
   width: 100%;
@@ -236,10 +236,10 @@ pre { left: 50%; }
  * We did it!       
  *
  * I mean *I* did it, but you know, whatever...
- * jake albaugh definitely did not have anything 
+ * Shinoy Shaji definitely did not have anything 
  * to do with this.
  *
- * This pen loves CodePen!       
+ * This is real Love!       
  * 
  * See you later!
  *  
