@@ -5602,23 +5602,23 @@ label {
 
 /* Text Inputs + Textarea
    ========================================================================== */
-/* Style Placeholders */
+/* Styles */
 ::-webkit-input-placeholder {
-  color: #d1d1d1;
+  color: #2962ff;
 }
 
 :-moz-placeholder {
   /* Firefox 18- */
-  color: #d1d1d1;
+  color: #2962ff;
 }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #d1d1d1;
+  color: #2962ff;
 }
 
 :-ms-input-placeholder {
-  color: #d1d1d1;
+  color: #2962ff;
 }
 
 /* Text inputs */
