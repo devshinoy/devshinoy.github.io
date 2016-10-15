@@ -2633,6 +2633,7 @@ ul.browser-default li {
 
 ul li {
   list-style-type: none;
+  padding-bottom: 15px;
 }
 
 a {
