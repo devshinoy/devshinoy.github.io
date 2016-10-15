@@ -22,7 +22,7 @@
       new angular.ViewAnnotation({
         template: '<h3>Tasks</h3>' +
                   '<ul><li *ng-for="#todo of todos"><button class="btn waves-effect waves-light blue accent-4" onclick="removeTodo(this)">X</button>&nbsp;&nbsp;<label><b>{{ todo }}</b></label><br/></li><br/></ul>' +
-                  '<form (submit)="addTodo(todotext)"><input placeholder="add your task here" #todotext><button class="btn waves-effect waves-light blue accent-4" type="submit">add</button></form>',
+                  '<form (submit)="addTodo(todotext)"><input placeholder="add your task here" #todotext><button class="btn waves-effect waves-light blue accent-4" type="submit">+</button></form>',
         directives: [angular.NgFor]
       })
     ];
