@@ -21,7 +21,7 @@
       }),
       new angular.ViewAnnotation({
         template: '<h3>Tasks</h3>' +
-                  '<ul  class="collection"><li class="collection-item" *ng-for="#todo of todos"><button class="btn waves-effect waves-light" onclick="removeTodo(this)">X</button>&nbsp;&nbsp;<label>{{ todo }}</label></li><br/></ul>' +
+                  '<ul  class="collection"><li class="collection-item" *ng-for="#todo of todos"><button class="btn waves-effect waves-light" onclick="removeTodo(this)">X</button>&nbsp;&nbsp;<label style="font-size:15px;">{{ todo }}</label></li><br/></ul>' +
                   '<form (submit)="addTodo(todotext)"><input #todotext><button class="btn waves-effect waves-light" type="submit">add</button></form>',
         directives: [angular.NgFor]
       })
