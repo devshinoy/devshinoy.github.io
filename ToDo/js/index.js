@@ -10,10 +10,15 @@
         }
 
     }
+	function removeEntry(el)
+	{
+		el.parentNode.style.display="none";
+	}
+	
 	function removeTodo(el)
 	{
 		el.parentNode.style.setProperty("text-decoration", "line-through");
-		el.parentNode.removeChild(el);
+		el.setAttribute("onclick","removeEntry(this)");
 	}
     AppComponent.annotations = [
       new angular.ComponentAnnotation({
