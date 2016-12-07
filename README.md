@@ -1,1 +1,0 @@
-# devshinoy.github.io
