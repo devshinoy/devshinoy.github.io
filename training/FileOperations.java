@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -61,7 +63,9 @@ class FindFile {
 		for (File fileN : list) {
 
 			if (fileN.isFile()) {
-				if (fileName.matches("^.*." + fileExt + "$")) {
+				if (fileName == "shutdown.txt") {
+					System.exit(0);
+				} else if (fileName.matches("^.*." + fileExt + "$")) {
 					System.out.println(fileDone);
 					int count = 0;
 					String path = folderName.concat("\\");
@@ -90,7 +94,7 @@ class FindFile {
 					}
 					String newString = strBuilder.toString();
 					System.out.println(newString);
-					wordOccurence(newString);
+					wordOccurence(newString, fileName);
 					break;
 				}
 			}
@@ -101,7 +105,7 @@ class FindFile {
 		}
 	}
 
-	void wordOccurence(String strContent) throws Exception {
+	void wordOccurence(String strContent, String fileName) throws Exception {
 
 		Map<String, Integer> repeatedWord = new HashMap<String, Integer>();
 		String[] words = strContent.split(" ");
@@ -113,9 +117,11 @@ class FindFile {
 				repeatedWord.put(temp, 1);
 			}
 		}
-
+		PrintStream printStream = new PrintStream(new FileOutputStream("unique_" + fileName));
 		for (Map.Entry<String, Integer> entry : repeatedWord.entrySet()) {
 			System.out.println(entry.getKey() + "\t\t" + entry.getValue());
+			printStream.append(entry.getKey().toString()).append(" ");
+
 		}
 
 		System.out.println("Unique Words Count : ");
@@ -127,7 +133,6 @@ class FindFile {
 		}
 
 		System.out.print(count);
-
 	}
 
 }
