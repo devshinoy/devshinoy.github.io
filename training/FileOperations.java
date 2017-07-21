@@ -1,3 +1,4 @@
+package training;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,6 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+
+class NoContentFileException extends Exception{
+	NoContentFileException(String s){
+		System.out.println(s);
+	}
+}
 
 public class FileOperations {
 
@@ -21,6 +29,7 @@ public class FileOperations {
 			String strFileExt = br.readLine();
 			FindFile ff = new FindFile();
 			ff.findFile(strFolderName, strFileExt);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -30,80 +39,108 @@ public class FileOperations {
 
 class FindFile {
 
-	public void findFile(String folderName, String fileExt) throws Exception {
-		try {
-			Pattern pattern;
-			File name = new File(folderName);
-			File[] list = name.listFiles();
-			for (File fileName : list) {
-
-				if (fileName.isFile()) {
-					String fName = fileName.getName();
-					if (fName.matches("^.*." + fileExt + "$")) {
-						System.out.println(fName);
-						findDoneFile(fName, fileExt, folderName);
-
-					}
-				}
-			}
-
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void findDoneFile(String fileName, String fileExt, String folderName) throws Exception {
-
-		String fileDone = fileName.concat(".done");
-		File name = new File(folderName);
-		File[] list = name.listFiles();
-		for (File fileN : list) {
-
-			if (fileN.isFile()) {
-				if (fileName == "shutdown.txt") {
-					System.exit(0);
-				} else if (fileName.matches("^.*." + fileExt + "$")) {
-					System.out.println(fileDone);
-					int count = 0;
-					String path = folderName.concat("\\");
-					String pathFile = path.concat(fileName);
-					Scanner sc = new Scanner(new FileReader(pathFile));
-					while (sc.hasNext()) {
-						sc.next();
-						count++;
-					}
-					System.out.println("Total word count is : " + count);
-					Scanner fileRead = new Scanner(new FileReader(pathFile));
-					String[] str = new String[count];
-					int i = 0;
-					while (fileRead.hasNext()) {
-						str[i] = fileRead.next();
-						String ed = str[i];
-						if (ed.matches("^.*ed$")) {
-							System.out.println(ed);
+	public void findFile(String path, String ext) throws Exception {
+		try{
+			File folder = new File(path);
+			File[] list = folder.listFiles();
+			String name;
+			for(File file : list)
+			{
+				if(file.isFile())
+					{
+						name = file.getName();
+						if(name.matches("shutdown.txt"))
+						{
+							System.exit(0);
+							break;
 						}
-						i++;
-					}
-					StringBuilder strBuilder = new StringBuilder();
-					for (i = 0; i < str.length; i++) {
-						strBuilder.append(str[i]);
-						strBuilder.append(" ");
-					}
-					String newString = strBuilder.toString();
-					System.out.println(newString);
-					wordOccurence(newString, fileName);
-					break;
-				}
+						else if(name.matches("^.*."+ext+"$"))
+						{
+							findDoneFile(name,path,ext);
+						}
+						
+						
+					}	
 			}
-
-			else {
-				System.out.println("Not found");
 			}
-		}
+			catch(Exception e)
+			{
+				System.out.println(e);
+			}
 	}
+
+	public void findDoneFile(String fileName, String path, String ext) throws Exception {
+		
+		File folder = new File(path);
+		File[] list = folder.listFiles();
+		String extDone = ext+".done";
+		String doneName;
+		//PrintStream logStream = new PrintStream(new FileOutputStream("C:\\Users\\Abraham\\Desktop\\SunTec\\Training\\outputlog.txt"));
+		String finalName[] = new String[1];
+		for(File file : list)
+
+
+			if(file.isFile())
+			{
+				doneName = file.getName();
+				//System.out.println(Name);
+				if (doneName.matches("^.*."+extDone+"$"))
+				{		
+					 finalName[0] = doneName.split(".done")[0];
+					 if(finalName[0].equals(fileName))
+					 {
+						 
+							System.out.println(fileName);
+							int count = 0;
+							String filePath = path.concat("\\");
+							String pathFile = filePath.concat(fileName);
+							Scanner sc = new Scanner(new FileReader(pathFile));
+							PrintStream backupStream = new PrintStream(new FileOutputStream(pathFile+"_backup.txt"));
+							while (sc.hasNext()) {
+								backupStream.append(sc.next()).append(" ");
+								count++;
+							}
+							if(count == 0){
+								System.out.println("Total word count is : " + count);
+								//logStream.append(String.valueOf(count)).append("\n");
+								throw new NoContentFileException("The File Has No Content");
+							}
+							else{
+							System.out.println("Total word count is : " + count);
+							//logStream.append(String.valueOf(count)).append("\n");
+							}
+							Scanner fileRead = new Scanner(new FileReader(pathFile));
+							String[] str = new String[count];
+							int i = 0;
+							while (fileRead.hasNext()) {
+								str[i] = fileRead.next();
+								String ed = str[i];
+								if (ed.matches("^.*ed$")) {
+									System.out.println(ed);
+//									logStream.append(ed).append("\n");
+								}
+								i++;
+							}
+							StringBuilder strBuilder = new StringBuilder();
+							for (i = 0; i < str.length; i++) {
+								strBuilder.append(str[i]);
+								strBuilder.append(" ");
+							}
+							String newString = strBuilder.toString();
+							System.out.println(newString);
+							wordOccurence(newString, fileName);
+						}
+					}
+
+					/*else {
+						System.out.println("Not found");
+					}*/
+				}
+		
+		
+	}
+
+	
 
 	void wordOccurence(String strContent, String fileName) throws Exception {
 
@@ -121,6 +158,7 @@ class FindFile {
 		for (Map.Entry<String, Integer> entry : repeatedWord.entrySet()) {
 			System.out.println(entry.getKey() + "\t\t" + entry.getValue());
 			printStream.append(entry.getKey().toString()).append(" ");
+			
 
 		}
 
